@@ -1,7 +1,15 @@
+# character_creation_module/main.py
+
 from random import randint
+
+# Новый импорт.
+# Из модуля start_game_banner, который расположен в папке graphic_arts,
+# импортируем функцию run_screensaver().
+from graphic_arts.start_game_banner import run_screensaver
 
 
 def attack(char_name: str, char_class: str) -> str:
+    """Attack scenario of each class."""
     if char_class == 'warrior':
         return (f'{char_name} нанёс урон противнику равный '
                 f'{5 + randint(3, 5)}')
@@ -15,6 +23,7 @@ def attack(char_name: str, char_class: str) -> str:
 
 
 def defence(char_name: str, char_class: str) -> str:
+    """Defence scenario of each class."""
     if char_class == 'warrior':
         return (f'{char_name} блокировал {10 + randint(5, 10)} урона')
     if char_class == 'mage':
@@ -25,6 +34,7 @@ def defence(char_name: str, char_class: str) -> str:
 
 
 def special(char_name: str, char_class: str) -> str:
+    """Specials attack."""
     if char_class == 'warrior':
         return (f'{char_name} применил специальное умение '
                 f'«Выносливость {80 + 25}»')
@@ -36,6 +46,7 @@ def special(char_name: str, char_class: str) -> str:
 
 
 def start_training(char_name: str, char_class: str) -> str:
+    """Trainig scenario."""
     if char_class == 'warrior':
         print(f'{char_name}, ты Воитель — отличный боец ближнего боя.')
     if char_class == 'mage':
@@ -60,6 +71,7 @@ def start_training(char_name: str, char_class: str) -> str:
 
 
 def choice_char_class() -> str:
+    """Choice class."""
     approve_choice: str = ''
     char_class: str = ''
     while approve_choice != 'y':
@@ -81,7 +93,8 @@ def choice_char_class() -> str:
     return char_class
 
 
-def main():
+if __name__ == '__main__':
+    run_screensaver()
     print('Приветствую тебя, искатель приключений!')
     print('Прежде чем начать игру...')
     char_name: str = input('...назови себя: ')
@@ -108,6 +121,7 @@ ANTIBONUS: float = 0.8
 def add_rep(current_rep: float,
             rep_points: int,
             buf_effect: bool) -> float:
+    """Plus to reputation."""
     current_rep += rep_points
     if buf_effect:
         return current_rep * BONUS
@@ -117,13 +131,15 @@ def add_rep(current_rep: float,
 def remove_rep(current_rep: float,
                rep_points: int,
                debuf_effect: bool) -> float:
+    """Minus reputation."""
     current_rep -= rep_points
     if debuf_effect:
         return current_rep * ANTIBONUS
     return current_rep
 
 
-def main1(duel_res: list[tuple[int, str, bool]]) -> str:
+def main(duel_res: list[tuple[int, str, bool]]) -> str:
+    """Reputation definition."""
     current_rep: float = 0.0
     for rep, result, effect in duel_res:
         if result == 'success':
@@ -134,4 +150,4 @@ def main1(duel_res: list[tuple[int, str, bool]]) -> str:
             f'репутация персонажа — {current_rep:.3f} очков.')
 
 
-main()
+main(TEST_DATA)
